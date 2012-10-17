@@ -1,0 +1,86 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:c="http://java.sun.com/jsp/jstl/core">
+    <h:head>
+        <title>Visualizza Progetto</title>
+    </h:head>
+    <h:body>
+
+        <f:view>
+            <h:form>
+
+                <h3><h:outputText value="Informazioni progetto"/></h3>
+
+                <h:panelGrid columns="2" style="line-height: 20px">
+                    <h:outputLabel value="Codice:" for="codice" style="font-weight: bold; padding-right: 20px"/>
+                    <h:outputText id="codice" value="#{progettoBean.progetto.codice}" title="Codice" />
+                    <h:outputLabel value="Ingegnere:" for="ingegnere" style="font-weight: bold; padding-right: 20px"/>
+                    <h:outputText id="architetto" value="#{progettoBean.progetto.ingegnere.nome} #{progettoBean.progetto.ingegnere.cognome}"/>
+                    <h:outputLabel value="Cliente:" for="cliente" style="font-weight: bold; padding-right: 20px"/>
+                    <h:outputText id="cliente" value="#{progettoBean.progetto.cliente.cognome} #{progettoBean.progetto.cliente.nome}"/>
+
+                    <c:if test="#{not progettoBean.modifica and not progettoBean.aggiuntaPannello}">
+                        <h:outputLabel value="Pannelli presenti:" for="pannelli" style="font-weight: bold; padding-right: 20px"/>
+                        <h:selectOneMenu id="arredi" value="#{progettoBean.pannello.idpannello}" title="pannelli" >
+                            <f:selectItems value="#{progettoBean.progetto.pannelloList}" var="item" itemLabel="#{item.descrizione}" itemValue="#{item.idpannello}"/>
+                        </h:selectOneMenu>
+                    </c:if>
+
+                </h:panelGrid><br/><br/>
+                
+                <c:if test="#{progettoBean.modifica}">
+
+                    <h:outputText value="Dati #{progettoBean.pannello.descrizione}:" style="font-weight: bold"/><br/><br/>
+
+                    <h:panelGrid columns="2" style="line-height: 20px">
+                        <h:outputLabel value="Marca:" for="marca" style="font-weight: bold; padding-right: 10px"/>
+                        <h:column>
+                            <h:selectOneMenu id="pannello" value="#{progettoBean.pannello.idpannello}" title="Pannello">
+                                <f:selectItems value="#{progettoBean.listaPannelli()}" var="item" itemLabel="#{item.marca} #{item.tipo}" itemValue="#{item.idpannello}" />
+                            </h:selectOneMenu>
+                        </h:column>
+                        <h:outputLabel value="Quantità:" for="quantità" style="font-weight: bold; padding-right: 10px"/>
+                        <h:column>
+                        <h:inputText id="quantita" value="#{progettoBean.progetto.quantitapannelli}" title="Quantità" />
+                        </h:column>
+                        <h:outputLabel value="Prezzo:" for="prezzo" style="font-weight: bold; padding-right: 10px"/>
+                        <h:column>
+                        <h:inputText id="prezzo" value="#{progettoBean.progetto.valore}" title="Prezzo" />
+                        <h:outputText value=" €"/>
+                        </h:column>
+                    </h:panelGrid><br/>
+
+                    <h:commandButton value="Applica modifiche" action="#{progettoBean.modificaPannello()}"/><br/><br/>
+                    <h:commandLink value="Indietro" action="#{progettoBean.indietro(true,false)}" style="padding-right: 20px"/>
+         
+                </c:if>
+
+
+
+                <c:if test="#{not progettoBean.modifica and not progettoBean.aggiuntaPannello}">
+
+
+                      <h:commandButton value="Rimuovi progetto" action="#{progettoBean.rimuoviProgetto}"/>
+
+                      <c:if test="#{progettoBean.valore != '0.0'}">
+                        <h:outputLabel value="Valore del progetto: " for="valore" style="font-weight: bold; padding-left: 10px"/>
+                        <h:outputText id="valore" value="#{progettoBean.valore}€"/>
+                      </c:if><br/><br/>
+                      
+                </c:if>
+                
+                <h:commandLink value="Torna alla Home" immediate="true" action="#{progettoBean.clear}" style="padding-right: 30px"/>
+
+                <c:if test="#{progettoBean.ultimo}">
+                    <h:outputText value="Impossibile rimuovere l'arredo selezionato: è l'ultimo presente nel progetto"/>
+                </c:if>
+                
+            </h:form>
+        </f:view>
+
+    </h:body>
+</html>
+

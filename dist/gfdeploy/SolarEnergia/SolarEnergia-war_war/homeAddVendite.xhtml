@@ -1,0 +1,139 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:c="http://java.sun.com/jsp/jstl/core"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+    <h:head>
+        <title>Home Page</title>
+    </h:head>
+
+    <h:body>
+        <f:view>
+            <h:form>
+                <center>
+                    <c:if test="#{logBean.logDip == null}"> Accesso non autorizzato effettuare login</c:if>
+
+                    <c:if test="#{logBean.logDip != null}">
+
+                    <h2><h:outputText value="Benvenuto #{logBean.logDip.nome} #{logBean.logDip.cognome}," style="line-height: 10px; padding-right: 10px"/></h2>
+
+                    
+                    
+                        <h2><h:outputText value="Mansione: Addetto Vendite. Cosa si desidera fare?"/></h2>
+                        
+                        <h:panelGrid columns="4" style="line-height: 30px">
+                            <h:outputLabel value="Cerca cliente per cognome:" for="ricerca"/>
+                            <h:inputText id="ricerca" value="#{ricercaBean.parolaChiave}"/>
+                            <h:commandButton value="cerca" action="#{ricercaBean.search(true)}"/>
+                            <h:commandButton value="mostra tutti" action="#{ricercaBean.searchAll(true)}"/>
+                        </h:panelGrid><br/>
+
+                    <br/>
+                    <c:if test="#{ricercaBean.visible}">
+                        <c:if test="#{not empty ricercaBean.risultati}">
+                            <h:dataTable value="#{ricercaBean.risultati}" var="item" border="1" cellpadding="5">
+                                <h:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="Cognome" style="padding-right: 10px"/>
+                                    </f:facet>
+                                    <h:outputText value="#{item.cognome}" style="padding-right: 10px"/>
+                                </h:column>
+                                <h:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="Nome"/>
+                                    </f:facet>
+                                    <h:outputText value="#{item.nome}" style="padding-right: 10px"/>
+                                </h:column>
+                                <h:column>
+                                    <h:commandLink value="Dettagli" action="#{clienteBean.dettagli(item.idcliente)}"/>
+                                </h:column>
+                            </h:dataTable>
+                        </c:if>
+                        <c:if test="#{empty ricercaBean.risultati}">Nessun risultato trovato</c:if>
+
+                        <c:if test="#{ricercaBean.continua}">
+
+                            <c:if test="#{not empty ricercaBean.risultati}">
+
+                                <h:dataTable value="#{ricercaBean.risultati}" style="text-align: left" var="item" border="1" cellpadding="5">
+                                    <h:column>
+                                        <f:facet name="header">
+                                            <h:outputText value="Cognome"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.cognome}" style="padding-right: 10px"/>
+                                    </h:column>
+                                    <h:column>
+                                        <f:facet name="header">
+                                            <h:outputText value="Nome"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.nome}" style="padding-right: 10px"/>
+                                    </h:column>
+                                    <h:column>
+                                        <h:commandLink value="Dettagli" action="#{clienteBean.dettagli(item.idcliente)}"/>
+                                    </h:column>
+                                </h:dataTable>
+                            </c:if>
+                        </c:if>
+                        <br/>
+                    </c:if>
+                    <br/><br/>
+                    
+                    
+                        <h:commandButton value="Nuovo contratto" action="#{contrattoBean.nuovoContratto(logBean.logDip)}"/><br/><br/>
+
+                        <h:commandButton value="Nuovo cliente" action="#{clienteBean.aggiungi()}"/><br/><br/>
+                        
+                        <h:commandButton value="Gestione Rilievi" action="#{rilieviBean.aggiungiRilievi()}"/><br/><br/><br/><br/><br/>
+                        
+                        
+                        
+                        <c:if test="#{not empty contrattoBean.contratti(logBean.logDip)}">
+
+                            <h4><h:outputLabel value="I tuoi contratti:" for="contratti"/></h4>
+
+                            <h:dataTable id="contratti" value="#{contrattoBean.contratti(logBean.logDip)}" var="item" style="text-align: center" border="1" cellpadding="5">
+                                         <h:column>
+                                        <f:facet name="header">
+                                            <h:outputText value="Codice"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.codice}" style="padding-right: 10px"/>
+                                        </h:column>
+                                        <h:column>
+                                            <f:facet name="header">
+                                                <h:outputText value="Cliente"/>
+                                            </f:facet>
+                                            <h:commandLink value="#{item.cliente.cognome} #{item.cliente.nome}" action="#{clienteBean.dettagli(item.cliente.idcliente)}" style="padding-right: 10px"/>
+                                        </h:column>
+                                        <h:column>
+                                            <f:facet name="header">
+                                                <h:outputText value="DataFirma"/>
+                                            </f:facet>
+                                            <h:outputText value="#{item.datafirma}" style="padding-right: 10px">
+                                                <f:convertDateTime pattern="dd/MM/yyyy" />
+                                            </h:outputText>
+                                        </h:column>
+                                        <h:column>
+                                            <f:facet name="header">
+                                                <h:outputText value="Valore"/>
+                                            </f:facet>
+                                            <h:outputText value="#{item.valore} €" style="padding-right: 10px"/>
+                                        </h:column>
+                                        <h:column>
+                                            <h:commandLink value="Dettagli" action="#{contrattoBean.dettagli(item)}" />
+                                        </h:column>
+                            </h:dataTable>
+                        </c:if>
+
+                        <c:if test="#{empty contrattoBean.contratti(logBean.logDip)}">Nessun Contratto Presente</c:if><br/><br/><br/>
+                        
+                        <h:commandButton value="Log out" action="#{logBean.logout()}" style="line-height: 10px; padding-right: 10px"/>
+                    </c:if>
+                </center>                                   
+            </h:form>
+        </f:view>
+    </h:body>
+
+</html>
+

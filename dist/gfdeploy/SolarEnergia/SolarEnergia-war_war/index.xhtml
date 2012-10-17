@@ -1,0 +1,49 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:c="http://java.sun.com/jsp/jstl/core">
+    <h:head>
+        <title>Login</title>
+        <h:outputStylesheet name="css/jsfcrud.css"/>
+    </h:head>
+    <h:body>
+        <f:view>
+            <h:form>
+                <center>
+
+                    <h2><h:outputText value="Benvenuti nel Sistema Informativo della SolarEnergia"/></h2>
+                    <h3><h:outputText value="Per effettuare il login inserire:"/></h3>
+                    <br/>
+                    <h:panelGrid columns="2" style="line-height: 20px">
+                        <h:outputLabel value="Username:" for="user" style="font-weight: bold; padding-right: 10px"/>
+                        <h:inputText id="user" value="#{logBean.user}"/>
+                        <h:outputLabel value="Password:" for="pass" style="font-weight: bold; padding-right: 10px"/>
+                        <h:inputSecret id="pass" value="#{logBean.pass}"/>
+                    </h:panelGrid><br/>
+
+                    <c:if test="#{logBean.errore}"> 
+                        <h:outputText value="Username e/o Password errati (in caso di smarrimento contattare gli amministratori)" style="line-height: 20px"/>
+                        <br/>
+                        <a href="mailto:gius.lufrano@gmail.com">Lufrano Giuseppe</a>
+                        <br/> 
+                        <a href="mailto:gaetano.belcastro@gmail.com">Belcastro Gaetano</a>
+                    </c:if><br/><br/>
+
+                    <h:commandButton onclick="#{RicercaBean.clear('')}" value="Login" action="#{logBean.verifica()}" style="width: 90px; height: 30px; font-weight: bold"/>
+
+                </center><br/>
+
+                <c:if test="#{not dipendenteBean.esisteAmministratore()}">
+                    <h:outputText value="Amministratore di sistema non presente!"/><br/>
+                    <h:commandButton value="Registra Amministratore" action="#{dipendenteBean.registraAmministratore()}"/>
+                </c:if>
+
+            </h:form>
+        </f:view>
+        <br />
+    </h:body>
+
+</html>
+

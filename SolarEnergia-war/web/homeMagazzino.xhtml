@@ -1,0 +1,39 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:c="http://java.sun.com/jsp/jstl/core">
+    <h:head>
+        <title>Gestione Magazzino\Ordini</title>
+    </h:head>
+    <h:body>
+        <f:view>
+            <h:form>
+                <center>
+                    <c:if test="#{logBean.logDip==null}">
+                        <h:panelGrid>
+                            <h:outputLabel value="Accesso non autorizzato, effettuare il login!!"/>                            
+                        </h:panelGrid>
+                        <h:commandLink value="Login" action="logout"/>
+                    </c:if>
+
+                    <c:if test="#{logBean.logDip!=null}">
+                        <h2><h:outputLabel value="#{logBean.logDip.nome} #{logBean.logDip.cognome} benvenuto nella sezione di gestione ordini, "/></h2>
+
+                        <h3><h:outputText value="A quale area del sistema desidera accedere?" style="font-weight: bold"/></h3><br/>
+                        <h:commandButton value="Fornitori" action="fornitori" style="width: 140px; height: 30px; font-weight:bold"/><br/><br/>
+                        <h:commandButton value="Nuovo ordine" action="neworder" style="width: 140px; height: 30px; font-weight:bold"/><br/><br/>
+                        <h:commandButton value="Visione ordini" action="visioneordini" style="width: 140px; height: 30px; font-weight:bold"/><br/>
+                        <br/><br/><br/>
+                        <h:panelGrid columns="2" cellpadding="5">
+                            <h:commandButton value="Logout" action="#{logBean.logout()}" style="line-height: 10px; padding-right: 10px" />
+                            <h:commandButton value="Indietro" action="back" style="line-height: 10px; padding-right: 10px"/>
+                        </h:panelGrid>
+                    </c:if>
+                </center>
+            </h:form>
+        </f:view>
+    </h:body>
+</html>
+

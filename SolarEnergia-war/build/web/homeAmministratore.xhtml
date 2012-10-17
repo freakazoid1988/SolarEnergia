@@ -1,0 +1,31 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:c="http://java.sun.com/jsp/jstl/core">
+    <h:head>
+        <title>Home Page Amministratore</title>
+    </h:head>
+    <h:body>
+        <f:view>
+            <h:form>
+                <center>
+
+                    <c:if test="#{logBean.logDip == null}"> Accesso non autorizzato effettuare login!</c:if>
+                    <c:if test="#{logBean.logDip != null}">                
+
+                        <h2><h:outputText value="Benvenuto #{logBean.logDip.nome} #{logBean.logDip.cognome}," style="line-height: 10px; padding-right: 10px"/></h2>
+
+                        <h3><h:outputText value="Il Suo stato di Amministratore le permette di accedere al sistema come:" style="font-weight: bold"/></h3><br/>
+                        <h:commandButton value="Gestore Personale" action="resp" style="width: 180px; height: 30px; font-weight:bold"/><br/><br/>
+                        <h:commandButton value="Gestore Ordini" action="mag" style="width: 180px; height: 30px; font-weight:bold"/><br/><br/>
+                        <h:commandButton value="Gestore Contabilità" action="cont" style="width: 180px; height: 30px; font-weight:bold"/><br/><br/><br/>
+                        <h:commandButton value="Log out" action="#{logBean.logout()}" style="line-height: 10px; padding-right: 10px"/>
+                    </c:if>
+                </center>
+            </h:form>
+        </f:view>
+    </h:body>
+</html>
+

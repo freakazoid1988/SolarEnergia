@@ -1,0 +1,125 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:c="http://java.sun.com/jsp/jstl/core">
+    <h:head>
+        <title>Visualizza Fattura Fornitori</title>
+    </h:head>
+    <h:body>
+        <f:view>
+            <h:form>
+                <center>
+                    <c:if test="#{logBean.logDip==null}">
+                        <h:panelGrid>
+                            <h:outputLabel value="Accesso non autorizzato, effettuare il login!!"/>                            
+                        </h:panelGrid>
+                        <h:commandLink value="Login" action="logout"/>
+                    </c:if>
+
+                    <c:if test="#{logBean.logDip!=null}">
+                        <h2><h:outputText value="Sezione relative alle fatture rilasciate dai fornitori"/></h2><br/>
+                        <h:panelGrid columns="6" cellspacing="5">
+                            <h:outputLabel value="Criterio di ricerca:" for="criterio" style="font-weight: bold; padding-right: 10px"/>
+                            <h:selectOneMenu id="criterio" value="#{fatturaBean.criterio}">
+                                <f:selectItem itemLabel="Codice Fattura" itemValue="codice"/>
+                                <f:selectItem itemLabel="Addetto Vendite" itemValue="addetto"/>
+                                <f:selectItem itemLabel="Valore" itemValue="valore"/>
+                                <f:selectItem itemLabel="Data Rilascio(anno e/o mese)" itemValue="data"/>
+                            </h:selectOneMenu>
+                            <h:inputText id="ricerca" size="25" value="#{fatturaBean.parolaChiave}"/>
+                            <h:commandButton value="Cerca" action="#{fatturaBean.search(false)}"/>
+                        </h:panelGrid>
+                        <br/>
+                        <h:commandLink value="Visualizza tutto" action="#{fatturaBean.tutteFatFornitori()}" immediate="true"/><br/><br/>
+
+
+                        <c:if test="#{fatturaBean.visione}">
+                            <c:if test="#{empty fatturaBean.fattureFor}">
+                                <h:outputLabel value="Nessuna fattura trovata"/>
+                            </c:if>
+
+                            <c:if test="#{not empty fatturaBean.fattureFor}">
+                                <h:dataTable value="#{fatturaBean.fattureFor}" var="item" border="1" cellpadding="5">
+                                    <h:column>
+                                        <f:facet name="header">
+                                            <h:outputText value="Codice Fattura"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.codice}"/>
+                                    </h:column>
+                                    <h:column>
+                                        <f:facet name="header">
+                                            <h:outputText value="Addetto Vendite"/>
+                                        </f:facet>
+                                        <h:panelGrid columns="2" cellspacing="5">
+                                            <h:outputText value="#{item.contabile.nome}"/>
+                                            <h:outputText value="#{item.contabile.cognome}"/>
+                                        </h:panelGrid>
+                                    </h:column>
+                                    <h:column>
+                                        <f:facet name="header">
+                                            <h:outputText value="Fornitore ordine"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.ordine.fornitore}"/>
+                                    </h:column>
+                                    <h:column>
+                                        <f:facet name="header">
+                                            <h:outputText value="Data Rilascio"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.datarilascio}"/>
+                                    </h:column>
+                                    <h:column>
+                                        <f:facet name="header">
+                                            <h:outputText value="Valore (‚Ç¨)"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.valore}"/>
+                                    </h:column>
+                                </h:dataTable>
+                            </c:if>
+
+                            <c:if test="#{fatturaBean.continua}">
+                                <c:if test="#{not empty fatturaBean.fattureFor}">
+                                    <h:dataTable value="#{fatturaBean.fattureFor}" var="item" border="1" cellpadding="5">
+                                        <h:column>
+                                            <f:facet name="header">
+                                                <h:outputText value="Codice Fattura"/>
+                                            </f:facet>
+                                            <h:outputText value="#{item.codice}"/>
+                                        </h:column>
+                                        <h:column>
+                                            <f:facet name="header">
+                                                <h:outputText value="Addetto Vendite"/>
+                                            </f:facet>
+                                            <h:panelGrid columns="2" cellspacing="5">
+                                                <h:outputText value="#{item.contabile.nome}"/>
+                                                <h:outputText value="#{item.contabile.cognome}"/>
+                                            </h:panelGrid>
+                                        </h:column>
+                                        <h:column>
+                                            <f:facet name="header">
+                                                <h:outputText value="Data Rilascio"/>
+                                            </f:facet>
+                                            <h:outputText value="#{item.datarilascio}"/>
+                                        </h:column>
+                                        <h:column>
+                                            <f:facet name="header">
+                                                <h:outputText value="Valore (‚Ç¨)"/>
+                                            </f:facet>
+                                            <h:outputText value="#{item.valore}"/>
+                                        </h:column>
+                                    </h:dataTable>
+                                </c:if>
+                            </c:if>
+                            <br/>
+                            <h:commandButton value="Next -->" action="#{fatturaBean.continuesF()}" disabled="#{fatturaBean.disable}"/>
+                        </c:if>
+                        <br/><br/>
+                            <h:commandButton value="Indietro" action="#{fatturaBean.ind('back')}"/>
+                    </c:if>
+                </center>
+            </h:form>
+        </f:view>
+    </h:body>
+</html>
+

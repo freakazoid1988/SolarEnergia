@@ -1,0 +1,39 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:c="http://java.sun.com/jsp/jstl/core">
+    <h:head>
+        <title>Home Page Contabile</title>
+    </h:head>
+    <h:body>
+        <f:view>
+            <h:form>
+                <center>
+                    <c:if test="#{logBean.logDip==null}">
+                        <h:panelGrid>
+                            <h:outputLabel value="Accesso non autorizzato, effettuare il login!!"/>                            
+                        </h:panelGrid>
+                        <h:commandLink value="Login" action="logout"/>
+                    </c:if>
+
+                    <c:if test="#{logBean.logDip!=null}">
+                        <h2> <h:outputLabel value="Benvenuto nella sezione dedicata alla gestione della contabilit√†:"/></h2>
+                        <h:panelGrid>
+                            <h:commandButton value="Visiona Fatture Clienti" action="vfc" style="width: 180px; height: 30px; font-weight:bold"/><br/>
+                            <h:commandButton value="Visiona Fatture Fornitori" action="vff" style="width: 180px; height: 30px; font-weight:bold"/><br/>
+                            <h:commandButton value="Calcola Bilancio" action="cb" style="width: 180px; height: 30px; font-weight:bold"/><br/>
+                            <h:commandButton value="Storico Transazioni" action="st" style="width: 180px; height: 30px; font-weight:bold"/><br/>
+                        </h:panelGrid>
+                        <h:panelGrid columns="2" cellspacing="5">
+                            <h:commandButton value="Indietro" action="amm"/>
+                            <h:commandButton value="Logout" action="#{logBean.logout()}"/>
+                        </h:panelGrid>
+                    </c:if>
+                </center>
+            </h:form>
+        </f:view>
+    </h:body>
+</html>
+

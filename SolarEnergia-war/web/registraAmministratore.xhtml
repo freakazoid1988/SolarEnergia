@@ -1,0 +1,52 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core">
+    <h:head>
+        <title>Registra Amministratore</title>
+    </h:head>
+    <h:body>
+        <f:view>
+            <h:form>
+                <center>
+                    <h3><h:outputText value="Inserire dati relativi al dipendente:"/></h3>
+
+                    <h:panelGrid columns="2" style="line-height: 20px">
+                        <h:outputLabel value="Nome:" for="nome" style="font-weight: bold; padding-right: 10px"/>
+                        <h:inputText id="nome" value="#{dipendenteBean.dipendente.nome}" title="Nome" validator="#{validatorBean.validaNome}"/>
+                        <h:outputLabel value="Cognome:" for="cognome" style="font-weight: bold; padding-right: 10px"/>
+                        <h:inputText id="cognome" value="#{dipendenteBean.dipendente.cognome}" title="Cognome" validator="#{validatorBean.validaCognome}"/>
+                        <h:outputLabel value="Indirizzo:" for="indirizzo" style="font-weight: bold; padding-right: 10px"/>
+                        <h:inputText id="indirizzo" value="#{dipendenteBean.dipendente.indirizzo}" title="Indirizzo" />
+                        <h:outputLabel value="Codice Fiscale:" for="codfiscale" style="font-weight: bold; padding-right: 10px"/>
+                        <h:inputText id="codFiscale" value="#{dipendenteBean.dipendente.codfiscale}" title="Codice Fiscale" validator="#{validatorBean.validaCodiceFiscale}"/>
+                        <h:outputLabel value="Mansione:" for="mansione" style="font-weight: bold; padding-right: 10px"/>
+                        <h:outputText id="mansione" value="#{dipendenteBean.dipendente.mansione.mansione}" title="Mansione"/>                        
+                        <h:outputLabel value="Salario:" for="valore" style="font-weight: bold; padding-right: 10px"/>
+                        <h:column>
+                            <h:inputText id="valore" value="#{dipendenteBean.dipendente.salario.valore}" title="Salario" validator="#{validatorBean.validaSalario}"/>
+                            <h:outputText value=" €"/>
+                        </h:column>
+                        <h:outputLabel value="Data Validità:" for="data" style="font-weight: bold; padding-right: 10px"/>
+                        <h:column>
+                            <h:inputText id="data" value="#{dipendenteBean.dipendente.salario.datainizio}" title="datainizio" validator="#{validatorBean.validaData}">
+                                <f:convertDateTime pattern="yyyy-MM-dd"/>
+                            </h:inputText>
+                            <h:outputText value=" yyyy-MM-dd"/>
+                        </h:column>
+                        <h:outputLabel value="Username:" for="username" style="font-weight: bold; padding-right: 10px"/>
+                        <h:inputText id="username" value="#{dipendenteBean.dipendente.login.username}" validator="#{validatorBean.validaUsername}"/>
+                        <h:outputLabel value="Password:" for="password" style="font-weight: bold; padding-right: 10px"/>
+                        <h:inputText id="password" value="#{dipendenteBean.dipendente.login.password}" validator="#{validatorBean.validaPassword}"/>                       
+                    </h:panelGrid><br/>
+
+                    <h:commandButton value="Aggiungi Amministratore" action="#{dipendenteBean.aggiungiAmministratore}"/><br/><br/>
+                    <h:commandLink value="Indietro" immediate="true" action="#{dipendenteBean.clear}"/>
+
+                </center>
+            </h:form>
+        </f:view>
+    </h:body>
+</html>
+

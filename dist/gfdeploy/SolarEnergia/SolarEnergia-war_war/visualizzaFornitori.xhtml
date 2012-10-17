@@ -1,0 +1,234 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:c="http://java.sun.com/jsp/jstl/core">
+    <h:head>
+        <title>Visualizza Fornitori</title>
+    </h:head>
+    <h:body>
+        <f:view>
+            <h:form>
+                <center>
+                    <c:if test="#{logBean.logDip==null}">
+                        <h:panelGrid>
+                            <h:outputLabel value="Accesso non autorizzato, effettuare il login!!"/>                            
+                        </h:panelGrid>
+                        <h:commandLink value="Login" action="logout"/>
+                    </c:if>
+
+                    <c:if test="#{logBean.logDip!=null}">
+                        <h2><h:outputLabel value="Benvenuto nell'area fornitori,"/></h2><br/>
+                        <h:panelGrid columns="1">
+                            <h:commandButton value="Nuovo fornitore" action="#{fornitoreBean.nuovo()}" immediate="true" style="width: 140px; height: 30px; font-weight:bold"/><br/>
+                            <h:commandButton value="Visione fornitori" action="#{fornitoreBean.visione()}" immediate="true" style="width: 140px; height: 30px; font-weight:bold"/>
+                        </h:panelGrid><br/>
+
+
+                        <c:if test="#{fornitoreBean.nuovo}">
+                            <h:panelGrid columns="2" style="line-height: 20px">
+                                <h:outputLabel value="Nome:" for="nome" style="font-weight: bold; padding-right: 10px"/>
+                                <h:inputText id="nome" value="#{fornitoreBean.fornitore.nome}" validator="#{validatorBean.validaNome}"/>
+                                <h:outputLabel value="Cognome:" for="cognome" style="font-weight: bold; padding-right: 10px"/>
+                                <h:inputText id="cognome" value="#{fornitoreBean.fornitore.cognome}" validator="#{validatorBean.validaCognome}"/>
+                                <h:outputLabel value="Ditta:" for="ditta" style="font-weight: bold; padding-right: 10px"/>
+                                <h:inputText id="ditta" value="#{fornitoreBean.fornitore.ditta}" validator="#{validatorBean.validaDitta}"/>
+                                <h:outputLabel value="P.Iva:" for="partitaIva" style="font-weight: bold; padding-right: 10px"/>
+                                <h:inputText id="partitaIva" value="#{fornitoreBean.fornitore.partitaIVA}" validator="#{validatorBean.validaPartitaIva}"/>
+                                <h:outputLabel value="Indirizzo:" for="indirizzo" style="font-weight: bold; padding-right: 10px"/>
+                                <h:inputText id="indirizzo" value="#{fornitoreBean.fornitore.indirizzo}"/>
+                                <h:outputLabel value="Telefono:" for="telefono" style="font-weight: bold; padding-right: 10px"/>
+                                <h:inputText id="telefono" value="#{fornitoreBean.fornitore.telefono}" validator="#{validatorBean.validaTelefono}"/>
+                                <h:outputLabel value="E-Mail:" for="mail" style="font-weight: bold; padding-right: 10px"/>
+                                <h:inputText id="mail" value="#{fornitoreBean.fornitore.mail}" validator="#{validatorBean.validaEMail}"/>
+                                <h:outputLabel value="Citt√†:" for="citta" style="font-weight: bold; padding-right: 10px"/>
+                                <h:inputText id="citta" value="#{fornitoreBean.fornitore.citta}" validator="#{validatorBean.validaCitta}"/>
+                                <h:outputLabel value="Provincia:" for="provincia" style="font-weight: bold; padding-right: 10px"/>
+                                <h:inputText id="provincia" value="#{fornitoreBean.fornitore.provincia}" validator="#{validatorBean.validaProvincia}"/>
+                            </h:panelGrid><br/>
+                            <h:commandButton value="Conferma" action="#{fornitoreBean.conferma()}"/>
+                        </c:if>
+
+                        <c:if test="#{fornitoreBean.visione}">
+                            <h:panelGrid columns="5" cellspacing="5">
+                                <h:outputLabel value="Criterio di ricerca:" for="criterio" style="font-weight: bold; padding-right: 10px"/>
+                                <h:selectOneMenu id="criterio" value="#{fornitoreBean.criterio}">
+                                    <f:selectItem itemLabel="Nome e/o Cognome" itemValue="nome"/>
+                                    <f:selectItem itemLabel="Ditta" itemValue="ditta"/>
+                                    <f:selectItem itemLabel="P.Iva" itemValue="iva"/>
+                                    <f:selectItem itemLabel="Citt√†" itemValue="citta"/>
+                                    <f:selectItem itemLabel="Provincia" itemValue="provincia"/>
+                                </h:selectOneMenu>
+                                <h:inputText id="ricerca" value="#{fornitoreBean.chiaveRicerca}" size="25"/>
+                                <h:commandButton value="Cerca" action="#{fornitoreBean.cerca()}"/>
+                                <h:commandLink value="Visualizza tutti" action="#{fornitoreBean.tutti()}" immediate="true"/>
+                            </h:panelGrid><br/>
+
+                            <c:if test="#{fornitoreBean.visible}">
+
+                                <c:if test="#{empty fornitoreBean.fornitori}">
+                                    <h:outputLabel value="Nessun fornitore presente"/>
+                                </c:if>
+
+                                <c:if test="#{not empty fornitoreBean.fornitori}">
+                                    <h:dataTable value="#{fornitoreBean.fornitori}" style="text-align: left" var="item" border="1" cellpadding="5">
+                                        <h:column>
+                                            <f:facet name="header">
+                                                <h:outputText value="Nome"/>
+                                            </f:facet>
+                                            <h:outputText value="#{item.nome}"/>
+                                        </h:column>
+                                        <h:column>
+                                            <f:facet name="header">
+                                                <h:outputText value="Cognome"/>
+                                            </f:facet>
+                                            <h:outputText value="#{item.cognome}"/>
+                                        </h:column>
+                                        <h:column>
+                                            <f:facet name="header">
+                                                <h:outputText value="Ditta"/>
+                                            </f:facet>
+                                            <h:outputText value="#{item.ditta}"/>
+                                        </h:column>
+                                        <h:column>
+                                            <f:facet name="header">
+                                                <h:outputText value="PartitaIva"/>
+                                            </f:facet>
+                                            <h:outputText value="#{item.partitaIVA}"/>
+                                        </h:column>
+                                        <h:column>
+                                            <f:facet name="header">
+                                                <center>
+                                                    <h:outputText value="Invia Mail"/>
+                                                </center>
+                                            </f:facet>
+                                            <a href="mailto:#{item.mail}">#{item.mail}</a>
+                                        </h:column>
+                                        <h:column>
+                                            <h:commandLink value="Visualizza" action="#{fornitoreBean.modifica(item.idfornitore)}" style="font-size: small"/>
+                                        </h:column>
+                                        <h:column>
+                                            <h:commandLink value="Rimuovi" action="#{fornitoreBean.rimuovi(item.idfornitore)}" style="font-size: small"/>
+                                        </h:column>
+                                    </h:dataTable>
+                                </c:if>
+
+                                <c:if test="#{fornitoreBean.continua}">
+                                    <c:if test="#{not empty fornitoreBean.fornitori}">
+                                        <h:dataTable value="#{fornitoreBean.fornitori}" style="text-align: left" var="item" border="1" cellpadding="5">
+                                            <h:column>
+                                                <f:facet name="header">
+                                                    <h:outputText value="Nome"/>
+                                                </f:facet>
+                                                <h:outputText value="#{item.nome}"/>
+                                            </h:column>
+                                            <h:column>
+                                                <f:facet name="header">
+                                                    <h:outputText value="Cognome"/>
+                                                </f:facet>
+                                                <h:outputText value="#{item.cognome}"/>
+                                            </h:column>
+                                            <h:column>
+                                                <f:facet name="header">
+                                                    <h:outputText value="Ditta"/>
+                                                </f:facet>
+                                                <h:outputText value="#{item.ditta}"/>
+                                            </h:column>
+                                            <h:column>
+                                                <f:facet name="header">
+                                                    <h:outputText value="PartitaIva"/>
+                                                </f:facet>
+                                                <h:outputText value="#{item.partitaIVA}"/>
+                                            </h:column>
+                                            <h:column>
+                                                <f:facet name="header">
+                                                    <center>
+                                                        <h:outputText value="Invia Mail"/>
+                                                    </center>
+                                                </f:facet>
+                                                <a href="mailto:#{item.mail}">#{item.mail}</a>
+                                            </h:column>
+                                            <h:column>
+                                                <h:commandLink value="Visualizza" action="#{fornitoreBean.modifica(item.idfornitore)}" style="font-size: small"/>
+                                            </h:column>
+                                            <h:column>
+                                                <h:commandLink value="Rimuovi" action="#{fornitoreBean.rimuovi(item.idfornitore)}" style="font-size: small"/>
+                                            </h:column>
+                                        </h:dataTable>
+                                    </c:if>
+                                </c:if>
+                                <br/>
+                                <h:commandButton value="Next -->" action="#{fornitoreBean.continues()}" disabled="#{fornitoreBean.disable}"/>
+                            </c:if>
+                            <c:if test="#{fornitoreBean.modifica}">
+                                <h:panelGrid columns="2" style="line-height: 20px">
+                                    <h:outputLabel value="Nome:" for="nome" style="font-weight: bold; padding-right: 10px"/>
+                                    <h:inputText id="nome" value="#{fornitoreBean.fornitore.nome}" validator="#{validatorBean.validaNome}" valueChangeListener="#{fornitoreBean.abilitaPulsante(event)}" onchange="submit()"/>
+                                    <h:outputLabel value="Cognome:" for="cognome" style="font-weight: bold; padding-right: 10px"/>
+                                    <h:inputText id="cognome" value="#{fornitoreBean.fornitore.cognome}" validator="#{validatorBean.validaCognome}" valueChangeListener="#{fornitoreBean.abilitaPulsante(event)}" onchange="submit()"/>
+                                    <h:outputLabel value="Ditta:" for="ditta" style="font-weight: bold; padding-right: 10px"/>
+                                    <h:inputText id="ditta" value="#{fornitoreBean.fornitore.ditta}" valueChangeListener="#{fornitoreBean.abilitaPulsante(event)}" onchange="submit()"/>
+                                    <h:outputLabel value="P.Iva:" for="partitaIva" style="font-weight: bold; padding-right: 10px"/>
+                                    <h:inputText id="partitaIva" value="#{fornitoreBean.fornitore.partitaIVA}" valueChangeListener="#{fornitoreBean.abilitaPulsante(event)}" onchange="submit()" />
+                                    <h:outputLabel value="Indirizzo:" for="indirizzo" style="font-weight: bold; padding-right: 10px"/>
+                                    <h:inputText id="indirizzo" value="#{fornitoreBean.fornitore.indirizzo}" valueChangeListener="#{fornitoreBean.abilitaPulsante(event)}" onchange="submit()"/>
+                                    <h:outputLabel value="Telefono:" for="telefono" style="font-weight: bold; padding-right: 10px"/>
+                                    <h:inputText id="telefono" value="#{fornitoreBean.fornitore.telefono}" validator="#{validatorBean.validaTelefono}" valueChangeListener="#{fornitoreBean.abilitaPulsante(event)}" onchange="submit()"/>
+                                    <h:outputLabel value="E-Mail:" for="mail" style="font-weight: bold; padding-right: 10px"/>
+                                    <h:inputText id="mail" value="#{fornitoreBean.fornitore.mail}" validator="#{validatorBean.validaEMail}" valueChangeListener="#{fornitoreBean.abilitaPulsante(event)}" onchange="submit()"/>
+                                    <h:outputLabel value="Citt√†:" for="citta" style="font-weight: bold; padding-right: 10px"/>
+                                    <h:inputText id="citta" value="#{fornitoreBean.fornitore.citta}" validator="#{validatorBean.validaCitta}" valueChangeListener="#{fornitoreBean.abilitaPulsante(event)}" onchange="submit()"/>
+                                    <h:outputLabel value="Provincia:" for="provincia" style="font-weight: bold; padding-right: 10px"/>
+                                    <h:inputText id="provincia" value="#{fornitoreBean.fornitore.provincia}" validator="#{validatorBean.validaProvincia}" valueChangeListener="#{fornitoreBean.abilitaPulsante(event)}" onchange="submit()"/>
+                                </h:panelGrid><br/>
+                                <c:if test="#{fornitoreBean.errore}">
+                                    <h:outputLabel value="Attenzione il campo 'ditta' o quello 'partita iva' sono gi√† presenti nel sistema!"/>
+                                </c:if><br/>
+                                <h:commandButton value="Modifica" action="#{fornitoreBean.confermaModifiche()}" disabled="#{fornitoreBean.disabled}"/>
+                            </c:if>
+
+                            <c:if test="#{fornitoreBean.rimozione}">
+                                <h:panelGrid columns="2" style="line-height: 20px">
+                                    <h:outputLabel value="Nome:" for="nome" style="font-weight: bold; padding-right: 10px"/>
+                                    <h:inputText id="nome" value="#{fornitoreBean.fornitore.nome}" readonly="true"/>
+                                    <h:outputLabel value="Cognome:" for="cognome" style="font-weight: bold; padding-right: 10px"/>
+                                    <h:inputText id="cognome" value="#{fornitoreBean.fornitore.cognome}" readonly="true"/>
+                                    <h:outputLabel value="Ditta:" for="ditta" style="font-weight: bold; padding-right: 10px"/>
+                                    <h:inputText id="ditta" value="#{fornitoreBean.fornitore.ditta}" readonly="true"/>
+                                    <h:outputLabel value="P.Iva:" for="partitaIva" style="font-weight: bold; padding-right: 10px"/>
+                                    <h:inputText id="partitaIva" value="#{fornitoreBean.fornitore.partitaIVA}" readonly="true"/>
+                                    <h:outputLabel value="Indirizzo:" for="indirizzo" style="font-weight: bold; padding-right: 10px"/>
+                                    <h:inputText id="indirizzo" value="#{fornitoreBean.fornitore.indirizzo}" readonly="true"/>
+                                    <h:outputLabel value="Telefono:" for="telefono" style="font-weight: bold; padding-right: 10px"/>
+                                    <h:inputText id="telefono" value="#{fornitoreBean.fornitore.telefono}" readonly="true"/>
+                                    <h:outputLabel value="E-Mail:" for="mail" style="font-weight: bold; padding-right: 10px"/>
+                                    <h:inputText id="mail" value="#{fornitoreBean.fornitore.mail}" readonly="true"/>
+                                    <h:outputLabel value="Citt√†:" for="citta" style="font-weight: bold; padding-right: 10px"/>
+                                    <h:inputText id="citta" value="#{fornitoreBean.fornitore.citta}" readonly="true"/>
+                                    <h:outputLabel value="Provincia:" for="provincia" style="font-weight: bold; padding-right: 10px"/>
+                                    <h:inputText id="provincia" value="#{fornitoreBean.fornitore.provincia}" readonly="true"/>
+                                </h:panelGrid><br/>
+
+                                <c:if test="#{not fornitoreBean.rem}">
+                                    <h:commandButton value="Rimuovi" action="#{fornitoreBean.preRimozione()}"/>
+                                </c:if>
+
+                                <c:if test="#{fornitoreBean.rem}">
+                                    <h3><h:outputLabel value="ATTENZIONE! La rimozione di un Fornitore implica necessariamente la cancellazione di tutti gli ordini a lui collegati!"/></h3><br/>
+                                    <h:commandButton value="Conferma" action="#{fornitoreBean.confermaRimozione()}"/>
+                                    <h:commandButton value="Annulla" action="#{fornitoreBean.annullaRimozione()}"/>
+                                </c:if>
+                            </c:if>
+                        </c:if>
+                        <br/><br/>
+                        <h:panelGrid columns="2">
+                            <h:commandButton value="Indietro" action="#{fornitoreBean.indietro()}" immediate="true"/>
+                        </h:panelGrid>
+                    </c:if>
+                </center>
+            </h:form>
+        </f:view>
+    </h:body>
+</html>
+

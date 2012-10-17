@@ -1,0 +1,85 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:c="http://java.sun.com/jsp/jstl/core">
+    <h:head>
+        <title>Ricerca Avanzata</title>
+    </h:head>
+    <h:body>
+        <f:view>
+            <h:form>
+                <center>
+
+                    <h3><h:outputText value="Ricerca Avanzata" style="font-weight: bold"/></h3>
+                    <h:panelGrid columns="5" style="line-height: 50px">
+                        <h:outputLabel value="Selezionare criterio di ricerca:" for="criterio" style="font-weight: bold; padding-right: 10px"/>
+                        <h:selectOneMenu id="criterio" value="#{ricercaBean.criterio}">
+                            <f:selectItem itemLabel="Nome e/o Cognome" itemValue="nome"/>
+                            <f:selectItem itemLabel="Contratto" itemValue="contratto"/>
+                            <f:selectItem itemLabel="Progetto" itemValue="progetto"/>
+                            <f:selectItem itemLabel="Mansione" itemValue="mansione"/>
+                            <f:selectItem itemLabel="Salario" itemValue="salario"/>
+                        </h:selectOneMenu>
+                        <h:inputText id="ricerca" value="#{ricercaBean.parolaChiave}"/>
+                        <h:commandButton value="cerca" action="#{ricercaBean.search(false)}" style="padding-right: 10px"/>
+                        <h:commandButton value="mostra tutti" action="#{ricercaBean.searchAll(false)}"/>
+                    </h:panelGrid>
+                    <br/>
+                    <c:if test="#{ricercaBean.visible}">
+                        <c:if test="#{not empty ricercaBean.risultati}">
+                            <h:dataTable value="#{ricercaBean.risultati}" var="item" border="1" cellpadding="5">
+                                <h:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="Cognome" style="padding-right: 10px"/>
+                                    </f:facet>
+                                    <h:outputText value="#{item.cognome}" style="padding-right: 10px"/>
+                                </h:column>
+                                <h:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="Nome"/>
+                                    </f:facet>
+                                    <h:outputText value="#{item.nome}" style="padding-right: 10px"/>
+                                </h:column>
+                                <h:column>
+                                    <h:commandLink value="Dettagli" action="#{dipendenteBean.dettagli(item.iddipendente)}"/>
+                                </h:column>
+                            </h:dataTable>
+                        </c:if>
+                        <c:if test="#{empty ricercaBean.risultati}">Nessun risultato trovato</c:if>
+
+                        <c:if test="#{ricercaBean.continua}">
+
+                            <c:if test="#{not empty ricercaBean.risultati}">
+
+                                <h:dataTable value="#{ricercaBean.risultati}" style="text-align: left" var="item" border="1" cellpadding="5">
+                                    <h:column>
+                                        <f:facet name="header">
+                                            <h:outputText value="Cognome"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.cognome}" style="padding-right: 10px"/>
+                                    </h:column>
+                                    <h:column>
+                                        <f:facet name="header">
+                                            <h:outputText value="Nome"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.nome}" style="padding-right: 10px"/>
+                                    </h:column>
+                                    <h:column>
+                                        <h:commandLink value="Dettagli" action="#{dipendenteBean.dettagli(item.iddipendente)}"/>
+                                    </h:column>
+                                </h:dataTable>
+                            </c:if>
+                        </c:if>
+                        <br/>
+                        <h:commandButton value="Next -->" action="#{ricercaBean.continues()}" disabled="#{ricercaBean.disable}"/>
+                    </c:if>
+                    <br/><br/>
+                    <h:commandButton value="Torna alla Home" action="#{ricercaBean.clear('back')}"/>
+                </center>
+            </h:form>
+        </f:view>
+    </h:body>
+</html>
+

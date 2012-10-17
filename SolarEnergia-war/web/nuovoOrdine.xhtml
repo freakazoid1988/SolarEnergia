@@ -1,0 +1,368 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:c="http://java.sun.com/jsp/jstl/core">
+    <h:head>
+        <title>Nuovo Ordine</title>
+    </h:head>
+    <h:body>
+        <f:view>
+            <h:form>
+                <center>
+                    <c:if test="#{logBean.logDip==null}">
+                        <h:panelGrid>
+                            <h:outputLabel value="Accesso non autorizzato, effettuare il login!!"/>                            
+                        </h:panelGrid>
+                        <h:commandLink value="Login" action="logout"/>
+                    </c:if>
+
+                    <c:if test="#{logBean.logDip!=null}">
+                        <h2><h:outputText value="Sezione deicata alla creazioni di moduli per la fornitura merci,  "/></h2>
+
+                        <c:if test="#{ordineBean.fase1}">
+                            <h2><h:outputText value="Fase 1: Selezione fornitore."/></h2><br/>
+                            <h:panelGrid columns="7" cellspacing="5">
+                                <h:outputLabel value="Criterio di ricerca:" for="criterio" style="font-weight: bold; padding-right: 10px"/>
+                                <h:selectOneMenu id="criterio" value="#{ordineBean.criterioFornitore}">
+                                    <f:selectItem itemLabel="Nome e/o Cognome" itemValue="nome"/>
+                                    <f:selectItem itemLabel="Ditta" itemValue="ditta"/>
+                                    <f:selectItem itemLabel="P.Iva" itemValue="iva"/>
+                                    <f:selectItem itemLabel="Citt√†" itemValue="citta"/>
+                                    <f:selectItem itemLabel="Provincia" itemValue="provincia"/>
+                                </h:selectOneMenu>
+                                <h:inputText id="ricerca" size="25" value="#{ordineBean.chiaveRicerca}"/>
+                                <h:commandButton value="Cerca" action="#{ordineBean.cercaFornitore()}"/>
+                                <h:commandButton value="Continua" action="#{ordineBean.continua()}"/>
+                            </h:panelGrid><br/>
+                            <h:commandLink value="Visualizza tutti" action="#{ordineBean.visionaFornitori()}"/>
+                            <br/><br/>
+
+                            <c:if test="#{ordineBean.visione}">
+
+                                <c:if test="#{empty ordineBean.fornitori}">
+                                    <h:outputLabel value="Nessun fornitore presente"/>
+                                </c:if>
+
+                                <c:if test="#{not empty ordineBean.fornitori}">
+                                    <h:dataTable value="#{ordineBean.fornitori}" var="item" border="1" cellpadding="5">
+                                        <h:column>
+                                            <f:facet name="header">
+                                                <h:outputText value="Nome"/>
+                                            </f:facet>
+                                            <h:outputText value="#{item.nome}"/>
+                                        </h:column>
+                                        <h:column>
+                                            <f:facet name="header">
+                                                <h:outputText value="Cognome"/>
+                                            </f:facet>
+                                            <h:outputText value="#{item.cognome}"/>
+                                        </h:column>
+                                        <h:column>
+                                            <f:facet name="header">
+                                                <h:outputText value="Ditta"/>
+                                            </f:facet>
+                                            <h:outputText value="#{item.ditta}"/>
+                                        </h:column>
+                                        <h:column>
+                                            <f:facet name="header">
+                                                <h:outputText value="Partita Iva"/>
+                                            </f:facet>
+                                            <h:outputText value="#{item.partitaIVA}"/>
+                                        </h:column>
+                                        <h:column>
+                                            <h:commandLink value="Seleziona" action="#{ordineBean.seleziona(item.idfornitore)}" style="font-size: small"/>
+                                        </h:column>
+                                    </h:dataTable>
+                                </c:if>
+                                <c:if test="#{ordineBean.continua}">
+                                    <c:if test="#{not empty ordineBean.fornitori}">
+                                        <h:dataTable value="#{ordineBean.fornitori}" var="item" border="1" cellpadding="5">
+                                            <h:column>
+                                                <f:facet name="header">
+                                                    <h:outputText value="Nome"/>
+                                                </f:facet>
+                                                <h:outputText value="#{item.nome}"/>
+                                            </h:column>
+                                            <h:column>
+                                                <f:facet name="header">
+                                                    <h:outputText value="Cognome"/>
+                                                </f:facet>
+                                                <h:outputText value="#{item.cognome}"/>
+                                            </h:column>
+                                            <h:column>
+                                                <f:facet name="header">
+                                                    <h:outputText value="Ditta"/>
+                                                </f:facet>
+                                                <h:outputText value="#{item.ditta}"/>
+                                            </h:column>
+                                            <h:column>
+                                                <f:facet name="header">
+                                                    <h:outputText value="Partita Iva"/>
+                                                </f:facet>
+                                                <h:outputText value="#{item.partitaIVA}"/>
+                                            </h:column>
+                                            <h:column>
+                                                <h:commandLink value="Seleziona" action="#{ordineBean.seleziona(item.idfornitore)}" style="font-size: small"/>
+                                            </h:column>
+                                        </h:dataTable>
+                                    </c:if>
+                                </c:if>
+                                <br/>
+                                <h:commandButton value="Next -->" action="#{ordineBean.continuesF()}" disabled="#{ordineBean.disable}"/>
+                            </c:if>
+                        </c:if>
+
+                        <c:if test="#{ordineBean.fase2}">
+                            <h2><h:outputText value="Fase 2: Selezione merci"/></h2><br/>
+                            <h:panelGrid columns="8" cellspacing="5">
+                                <h:outputLabel value="Criterio di ricerca:" style="font-weight: bold; padding-right: 10px" for="criterio"/>
+                                <h:selectOneMenu id="criterio" value="#{ordineBean.criterioPannello}">
+                                    <f:selectItem itemLabel="Marca e/o Numero Serie" itemValue="marcaNSerie"/>
+                                    <f:selectItem itemLabel="Marca e/o Tipo" itemValue="marcaTip"/>
+                                    <f:selectItem itemLabel="Tipo e/o Modello" itemValue="tipoMod"/>
+                                    <f:selectItem itemLabel="Prezzo" itemValue="prezzo"/>
+                                </h:selectOneMenu>
+                                <h:inputText id="ricerca" value="#{ordineBean.chiaveRicerca}" size="25"/>
+                                <h:commandButton value="Cerca" action="#{ordineBean.cercaPannello()}"/>
+                                <h:commandButton value="Continua" action="#{ordineBean.continua()}" style="font-size: small"/>
+                            </h:panelGrid><br/>
+                            <h:panelGrid columns="2" cellspacing="5">
+                                <h:commandLink value="In Magazzino" action="#{ordineBean.magazzino()}" immediate="true"/>
+                                <h:commandLink value="Meno di 50 unità" action="#{ordineBean.quasiTerminati()}" immediate="true"/>
+                            </h:panelGrid><br/>
+
+                            <c:if test="#{ordineBean.visione}">
+
+                                <c:if test="#{empty ordineBean.fornitura}">
+                                    <h:outputLabel value="Nessun risultato valido per la ricerca effettuata!"/>
+                                </c:if><br/><br/>                         
+
+                                <c:if test="#{not empty ordineBean.fornitura}">
+                                    <h:dataTable value="#{ordineBean.fornitura}" var="item" border="1" cellpadding="5">
+                                        <h:column>
+                                            <f:facet name="header">
+                                                <h:outputText value="Numero Serie"/>
+                                            </f:facet>
+                                            <h:outputText value="#{item.nserie}"/>
+                                        </h:column>
+                                        <h:column>
+                                            <f:facet name="header">
+                                                <h:outputText value="Marca"/>
+                                            </f:facet>
+                                            <h:outputText value="#{item.marca}"/>
+                                        </h:column>
+                                        <h:column>
+                                            <f:facet name="header">
+                                                <h:outputText value="Tipologia"/>
+                                            </f:facet>
+                                            <h:outputText value="#{item.tipo}"/>
+                                        </h:column>
+                                        <h:column>
+                                            <f:facet name="header">
+                                                <h:outputText value="Prezzo"/>
+                                            </f:facet>
+                                            <h:outputText value="#{item.prezzo}"/>
+                                        </h:column>
+                                        <h:column>
+                                            <f:facet name="header">
+                                                <h:outputText value="In Magazzino"/>
+                                            </f:facet>
+                                            <h:outputText value="#{item.quantita}"/>
+                                        </h:column>
+                                        <h:column>
+                                            <f:facet name="header">
+                                                <h:outputText value="Quantità"/>
+                                            </f:facet>
+                                            <h:inputText value="#{item.quantOrdine}" size="10" validator="#{validatorBean.validaQuantita}"/>
+                                        </h:column>
+                                        <h:column>
+                                            <center>
+                                                <f:facet name="header">
+                                                    <h:outputText value="Check"/>
+                                                </f:facet>
+                                                <h:selectBooleanCheckbox value="#{item.selected}"/>
+                                            </center>
+                                        </h:column>
+                                    </h:dataTable>
+                                </c:if>
+                                <c:if test="#{ordineBean.continua}">
+                                    <c:if test="#{not empty ordineBean.fornitura}">
+                                        <h:dataTable value="#{ordineBean.fornitura}" var="item" border="1" cellpadding="5">
+                                            <h:column>
+                                                <f:facet name="header">
+                                                    <h:outputText value="Numero Serie"/>
+                                                </f:facet>
+                                                <h:outputText value="#{item.nserie}"/>
+                                            </h:column>
+                                            <h:column>
+                                                <f:facet name="header">
+                                                    <h:outputText value="Marca"/>
+                                                </f:facet>
+                                                <h:outputText value="#{item.marca}"/>
+                                            </h:column>
+                                            <h:column>
+                                                <f:facet name="header">
+                                                    <h:outputText value="Tipologia"/>
+                                                </f:facet>
+                                                <h:outputText value="#{item.tipo}"/>
+                                            </h:column>
+                                            <h:column>
+                                                <f:facet name="header">
+                                                    <h:outputText value="Prezzo"/>
+                                                </f:facet>
+                                                <h:outputText value="#{item.prezzo}"/>
+                                            </h:column>
+                                            <h:column>
+                                                <f:facet name="header">
+                                                    <h:outputText value="In Magazzino"/>
+                                                </f:facet>
+                                                <h:outputText value="#{item.quantita}"/>
+                                            </h:column>
+                                            <h:column>
+                                                <f:facet name="header">
+                                                    <h:outputText value="Quantità"/>
+                                                </f:facet>
+                                                <h:inputText value="#{item.quantOrdine}" size="10" validator="#{validatorBean.validaQuantita}"/>
+                                            </h:column>
+                                            <h:column>
+                                                <center>
+                                                    <f:facet name="header">
+                                                        <h:outputText value="Check"/>
+                                                    </f:facet>
+                                                    <h:selectBooleanCheckbox value="#{item.selected}"/>
+                                                </center>
+                                            </h:column>
+                                        </h:dataTable>
+                                    </c:if>
+                                </c:if>
+                                <br/>
+                                <h:commandButton value="Next -->" action="#{ordineBean.continuesP()}" disabled="#{ordineBean.disable}"/>
+                            </c:if>
+                        </c:if>
+
+                        <c:if test="#{ordineBean.fase3}">
+
+                            <c:if test="#{ordineBean.riepilogo}">
+                                <h2><h:outputText value="Fase 3: Riepilogo ordine"/></h2><br/>
+                                <h:panelGrid columns="2" style="line-height: 20px">
+                                    <h:outputLabel value="Ditta:" for="ditta" style="font-weight: bold; padding-right: 10px"/>
+                                    <h:column>
+                                        <h:inputText id="ditta" value="#{ordineBean.fornitore.ditta}" readonly="true"/>
+                                        <h:commandLink value="Info" action="#{ordineBean.info()}" style="font-size: small"/>
+                                    </h:column>
+                                    <h:outputLabel value="Data inoltro:" for="inoltro" style="font-weight: bold; padding-right: 10px"/>
+                                    <h:column>
+                                        <h:inputText id="inoltro" value="#{ordineBean.ordine.dataordine}">
+                                            <f:convertDateTime pattern="yyyy-MM-dd" />
+                                        </h:inputText>
+                                        <h:outputText value=" yyyy-MM-dd" style="font-size: small"/>
+                                    </h:column>
+                                    <h:outputLabel value="Merce:" for="merce" style="font-weight: bold; padding-right: 10px"/>
+                                    <h:commandLink id="merce" value="Fornitura" action="#{ordineBean.fornitura()}" style="font-size: small"/>
+                                    <h:outputLabel value="Quantit√†:" for="quantita" style="font-weight: bold; padding-right: 10px"/>
+                                    <h:inputText id="quantita" readonly="true" value="#{ordineBean.quan()}"/>
+                                    <h:outputLabel value="Totale:" for="totale" style="font-weight: bold; padding-right: 10px"/>
+                                    <h:column>
+                                        <h:inputText id="totale" readonly="true" value="#{ordineBean.tot()}"/>
+                                        <h:outputLabel value="‚Ç¨"/>
+                                    </h:column>
+                                </h:panelGrid><br/>
+                                <h:panelGrid columns="3" cellspacing="5">
+                                    <h:commandButton value="Annulla Operazione" action="#{ordineBean.annulla()}"/>
+                                    <h:commandButton value="Inoltra" action="#{ordineBean.inoltra()}"/>
+                                </h:panelGrid>
+                                <c:if test="#{ordineBean.errore}"><br/>
+                                    <h:outputLabel value="Impossibile inoltrare l'ordine per incompletezza di dati!"/>
+                                </c:if>
+                            </c:if>
+
+                            <c:if test="#{ordineBean.info}">
+
+                                <c:if test="#{ordineBean.fornitore!=null}">
+                                    <h2><h:outputText value="Informazioni ditta"/></h2><br/>
+                                    <h:panelGrid columns="2" style="line-height: 20px">
+                                        <h:outputLabel value="Nome:" for="nome" style="font-weight: bold; padding-right: 10px"/>
+                                        <h:inputText id="nome" value="#{ordineBean.fornitore.nome}" readonly="true"/>
+                                        <h:outputLabel value="Cognome:" for="cognome" style="font-weight: bold; padding-right: 10px"/>
+                                        <h:inputText id="cognome" value="#{ordineBean.fornitore.cognome}" readonly="true"/>
+                                        <h:outputLabel value="Ditta:" for="ditta" style="font-weight: bold; padding-right: 10px"/>
+                                        <h:inputText id="ditta" value="#{ordineBean.fornitore.ditta}" readonly="true"/>
+                                        <h:outputLabel value="P.Iva:" for="partitaIva" style="font-weight: bold; padding-right: 10px"/>
+                                        <h:inputText id="partitaIva" value="#{ordineBean.fornitore.partitaIVA}" readonly="true"/>
+                                        <h:outputLabel value="Indirizzo:" for="indirizzo" style="font-weight: bold; padding-right: 10px"/>
+                                        <h:inputText id="indirizzo" value="#{ordineBean.fornitore.indirizzo}" readonly="true"/>
+                                        <h:outputLabel value="Telefono:" for="telefono" style="font-weight: bold; padding-right: 10px"/>
+                                        <h:inputText id="telefono" value="#{ordineBean.fornitore.telefono}" readonly="true"/>
+                                        <h:outputLabel value="E-Mail:" for="mail" style="font-weight: bold; padding-right: 10px"/>
+                                        <h:inputText id="mail" value="#{ordineBean.fornitore.mail}" readonly="true"/>
+                                        <h:outputLabel value="Citt√†:" for="citta" style="font-weight: bold; padding-right: 10px"/>
+                                        <h:inputText id="citta" value="#{ordineBean.fornitore.citta}" readonly="true"/>
+                                        <h:outputLabel value="Provincia:" for="provincia" style="font-weight: bold; padding-right: 10px"/>
+                                        <h:inputText id="provincia" value="#{ordineBean.fornitore.provincia}" readonly="true"/>
+                                    </h:panelGrid>
+                                </c:if>
+
+                                <c:if test="#{ordineBean.fornitore==null}">
+                                    <h:outputLabel value="Attenzione non √® stato scelto alcun fornitore!"/>
+                                </c:if><br/>
+                            </c:if>
+
+                            <c:if test="#{ordineBean.merci}">
+                                <h2><h:outputText value="Riepilogo fornitura"/></h2><br/>
+
+                                <c:if test="#{empty ordineBean.temporanei}">
+                                    <h:panelGrid>
+                                        <h:outputLabel value="Nessun articolo presente nell'ordine"/>                                       
+                                    </h:panelGrid>
+                                </c:if>
+
+                                <c:if test="#{not empty ordineBean.temporanei}">
+                                    <h:dataTable value="#{ordineBean.temporanei}" var="item" border="1" cellpadding="5">
+                                        <h:column>
+                                            <f:facet name="header">
+                                                <h:outputText value="Marca"/>
+                                            </f:facet>
+                                            <h:outputText value="#{item.marca}"/>
+                                        </h:column>
+                                        <h:column>
+                                            <f:facet name="header">
+                                                <h:outputText value="Modello"/>
+                                            </f:facet>
+                                            <h:outputText value="#{item.nserie}"/>
+                                        </h:column>
+                                        <h:column>
+                                            <f:facet name="header">
+                                                <h:outputText value="Tipologia"/>
+                                            </f:facet>
+                                            <h:outputText value="#{item.tipo}"/>
+                                        </h:column>
+                                        <h:column>
+                                            <f:facet name="header">
+                                                <h:outputText value="Prezzo"/>
+                                            </f:facet>
+                                            <h:outputText value="#{item.prezzo}"/>
+                                        </h:column>
+                                        <h:column>
+                                            <f:facet name="header">
+                                                <h:outputText value="Quantit√†"/>
+                                            </f:facet>
+                                            <h:inputText value="#{item.quantOrdine}" size="10" validator="#{validatorBean.validaQtaOrdine}"/>
+                                        </h:column>
+                                        <h:column>
+                                            <h:commandLink value="Rimuovi" style="font-size: small" action="#{ordineBean.rimuovi(item.idpannello)}" immediate="true"/>
+                                        </h:column>
+                                    </h:dataTable><br/>
+                                </c:if>
+                            </c:if>
+                        </c:if>
+                        <br/><br/>
+                        <h:commandButton value="Indietro" action="#{ordineBean.indietro()}"/>
+                    </c:if>
+                </center>
+            </h:form>
+        </f:view>
+    </h:body>
+</html>
+
