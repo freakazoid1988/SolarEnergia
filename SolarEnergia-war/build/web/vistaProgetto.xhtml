@@ -9,13 +9,13 @@
     <h:body>
         <f:view>
             <h:form>
-
+                <center>
                 <h3><h:outputText value="Dati progetto:"/></h3>
                 <h:panelGrid columns="2" style="line-height: 20px">
                     <h:outputLabel value="Codice:" for="codice" style="font-weight: bold; padding-right: 20px"/>
                     <h:outputText id="codice" value="#{progettoBean.progetto.codice}" title="Codice" />
-                    <h:outputLabel value="Addetto Vendite:" for="addetto" style="font-weight: bold; padding-right: 20px"/>
-                    <h:outputText id="addetto" value="#{progettoBean.progetto.ingegnere.cognome} #{progettoBean.progetto.ingegnere.nome}" title="Addetto" />
+                    <h:outputLabel value="Ingegnere:" for="ingegnere" style="font-weight: bold; padding-right: 20px"/>
+                    <h:outputText id="ingegnere" value="#{progettoBean.progetto.ingegnere.cognome} #{progettoBean.progetto.ingegnere.nome}" title="Addetto" />
                     <h:outputLabel value="Cliente:" for="cliente" style="font-weight: bold; padding-right: 20px"/>
                     <h:outputText id="cliente" value="#{progettoBean.progetto.cliente.cognome} #{progettoBean.progetto.cliente.nome}" title="Cliente"/>
                     <h:outputLabel value="Marca pannelli:" for="marca" style="font-weight: bold; padding-right: 20px"/>
@@ -29,8 +29,8 @@
                 </h:panelGrid><br/>
 
                 <br/><br/>
-                <h:commandLink value="Torna alla Home" action="#{progettoBean.clear}"/>
-
+                <h:commandButton value="Torna alla Home" action="#{progettoBean.clear}"/>
+                </center>
             </h:form>
         </f:view>
     </h:body>

@@ -33,11 +33,11 @@
                         <h:inputText id="valore" value="#{contrattoBean.contratto.valore}" title="Valore" validator="#{validatorBean.validaValore}"/>
                         <h:outputText value=" €"/>
                     </h:column>
-                </h:panelGrid><br/>
+                </h:panelGrid><br/><br/><br/>
 
                 
-                <h:commandButton value="Aggiungi" action="#{contrattoBean.aggiungiContratto}"/><br/><br/>
-                <h:commandLink value="Torna alla Home" immediate="true" action="#{contrattoBean.clear}"/>
+                <h:commandButton value="Aggiungi" action="#{contrattoBean.aggiungiContratto}"/>
+                <h:commandButton value="Torna alla Home" immediate="true" action="#{contrattoBean.clear}"/>
                 </center>         
             </h:form>
         </f:view>

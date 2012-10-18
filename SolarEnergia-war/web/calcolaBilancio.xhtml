@@ -38,17 +38,17 @@
                                         </center>
                                     </td>
                                     <td><h:commandButton value="OK!" action="#{storicoTransazioniBean.calcolaTotSalari()}"/></td>
-                                    <td><h:outputLabel value="#{storicoTransazioniBean.totSalari} ‚Ç¨"/></td>
+                                    <td><h:outputLabel value="#{storicoTransazioniBean.totSalari} €"/></td>
                                 </tr>
                                 <tr>
                                     <td><h:outputLabel value="Entrate"/></td>
                                     <td><h:commandButton value="OK!" action="#{storicoTransazioniBean.calcolaTotFatClienti()}"/></td>
-                                    <td><h:outputLabel value="#{storicoTransazioniBean.totFatClienti} ‚Ç¨"/></td>
+                                    <td><h:outputLabel value="#{storicoTransazioniBean.totFatClienti} €"/></td>
                                 </tr>
                                 <tr>
                                     <td><h:outputLabel value="Uscite"/></td>
                                     <td><h:commandButton value="OK!" action="#{storicoTransazioniBean.calcolaTotFatFornitori()}"/></td>
-                                    <td><h:outputLabel value="#{storicoTransazioniBean.totFatFornitori} ‚Ç¨"/></td>
+                                    <td><h:outputLabel value="#{storicoTransazioniBean.totFatFornitori} €"/></td>
                                 </tr>
                                 <tr>
                                     <td><h:outputLabel value="Bilancio Finale"/></td>
@@ -61,7 +61,7 @@
                                             <h:commandButton value="OK!" action="#{storicoTransazioniBean.calcolaTotale()}" disabled="#{storicoTransazioniBean.disabled}"/>
                                         </c:if>
                                     </td>
-                                    <td><h:outputLabel value="#{storicoTransazioniBean.totale} ‚Ç¨"/></td>
+                                    <td><h:outputLabel value="#{storicoTransazioniBean.totale} €"/></td>
                                 </tr>
                             </tbody>
                         </table>

@@ -24,7 +24,6 @@
                             <f:selectItems value="#{progettoBean.listaClienti()}" var="item" itemLabel="#{item.nome} #{item.cognome}" itemValue="#{item.idcliente}"/>
                         </h:selectOneMenu>
                         <h:outputLabel value="Pannelli presenti:" for="pannelli" style="font-weight: bold; padding-right: 10px"/>
-                        <!-- tipo pannello, quantità, marca -->
 
                     </h:panelGrid><br/>
 
@@ -84,6 +83,7 @@
                     <c:if test="#{progettoBean.nuovo || empty progettoBean.pannelli()}">
                         <h:commandButton value="Indietro" immediate="true" action="#{progettoBean.indietro(false,true)}" style="padding-right: 10px"/>
                     </c:if>
+                    <br/>
 
                     <h:commandButton value="Torna alla Home" immediate="true" action="#{progettoBean.clear}"/>
                 </center>

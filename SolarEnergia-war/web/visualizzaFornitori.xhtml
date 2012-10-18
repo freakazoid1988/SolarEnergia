@@ -42,7 +42,7 @@
                                 <h:inputText id="telefono" value="#{fornitoreBean.fornitore.telefono}" validator="#{validatorBean.validaTelefono}"/>
                                 <h:outputLabel value="E-Mail:" for="mail" style="font-weight: bold; padding-right: 10px"/>
                                 <h:inputText id="mail" value="#{fornitoreBean.fornitore.mail}" validator="#{validatorBean.validaEMail}"/>
-                                <h:outputLabel value="Citt√†:" for="citta" style="font-weight: bold; padding-right: 10px"/>
+                                <h:outputLabel value="Città:" for="citta" style="font-weight: bold; padding-right: 10px"/>
                                 <h:inputText id="citta" value="#{fornitoreBean.fornitore.citta}" validator="#{validatorBean.validaCitta}"/>
                                 <h:outputLabel value="Provincia:" for="provincia" style="font-weight: bold; padding-right: 10px"/>
                                 <h:inputText id="provincia" value="#{fornitoreBean.fornitore.provincia}" validator="#{validatorBean.validaProvincia}"/>
@@ -57,7 +57,7 @@
                                     <f:selectItem itemLabel="Nome e/o Cognome" itemValue="nome"/>
                                     <f:selectItem itemLabel="Ditta" itemValue="ditta"/>
                                     <f:selectItem itemLabel="P.Iva" itemValue="iva"/>
-                                    <f:selectItem itemLabel="Citt√†" itemValue="citta"/>
+                                    <f:selectItem itemLabel="Città" itemValue="citta"/>
                                     <f:selectItem itemLabel="Provincia" itemValue="provincia"/>
                                 </h:selectOneMenu>
                                 <h:inputText id="ricerca" value="#{fornitoreBean.chiaveRicerca}" size="25"/>
@@ -177,7 +177,7 @@
                                     <h:inputText id="telefono" value="#{fornitoreBean.fornitore.telefono}" validator="#{validatorBean.validaTelefono}" valueChangeListener="#{fornitoreBean.abilitaPulsante(event)}" onchange="submit()"/>
                                     <h:outputLabel value="E-Mail:" for="mail" style="font-weight: bold; padding-right: 10px"/>
                                     <h:inputText id="mail" value="#{fornitoreBean.fornitore.mail}" validator="#{validatorBean.validaEMail}" valueChangeListener="#{fornitoreBean.abilitaPulsante(event)}" onchange="submit()"/>
-                                    <h:outputLabel value="Citt√†:" for="citta" style="font-weight: bold; padding-right: 10px"/>
+                                    <h:outputLabel value="Città:" for="citta" style="font-weight: bold; padding-right: 10px"/>
                                     <h:inputText id="citta" value="#{fornitoreBean.fornitore.citta}" validator="#{validatorBean.validaCitta}" valueChangeListener="#{fornitoreBean.abilitaPulsante(event)}" onchange="submit()"/>
                                     <h:outputLabel value="Provincia:" for="provincia" style="font-weight: bold; padding-right: 10px"/>
                                     <h:inputText id="provincia" value="#{fornitoreBean.fornitore.provincia}" validator="#{validatorBean.validaProvincia}" valueChangeListener="#{fornitoreBean.abilitaPulsante(event)}" onchange="submit()"/>
@@ -204,7 +204,7 @@
                                     <h:inputText id="telefono" value="#{fornitoreBean.fornitore.telefono}" readonly="true"/>
                                     <h:outputLabel value="E-Mail:" for="mail" style="font-weight: bold; padding-right: 10px"/>
                                     <h:inputText id="mail" value="#{fornitoreBean.fornitore.mail}" readonly="true"/>
-                                    <h:outputLabel value="Citt√†:" for="citta" style="font-weight: bold; padding-right: 10px"/>
+                                    <h:outputLabel value="Città:" for="citta" style="font-weight: bold; padding-right: 10px"/>
                                     <h:inputText id="citta" value="#{fornitoreBean.fornitore.citta}" readonly="true"/>
                                     <h:outputLabel value="Provincia:" for="provincia" style="font-weight: bold; padding-right: 10px"/>
                                     <h:inputText id="provincia" value="#{fornitoreBean.fornitore.provincia}" readonly="true"/>

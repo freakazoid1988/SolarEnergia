@@ -27,20 +27,20 @@
 
 
                     
-                </h:panelGrid> <br/>
+                </h:panelGrid> <br/><br/><br/>
 
                 <c:if test="#{logBean.logDip.mansione.mansione == 'Amministratore'}">
                     <h:commandButton value="Modifica" action="modifica"/>
                     <h:commandButton value="Rimuovi" action="#{clienteBean.rimuovi}" style="position: relative; left: 20px"/><br/><br/>
-                    <h:commandLink value="Torna alla Home" action="#{clienteBean.clear}"/>
+                    <h:commandButton value="Torna alla Home" action="#{clienteBean.clear}"/>
                 </c:if>
                
                 <c:if test="#{logBean.logDip.mansione.mansione == 'Addetto Vendite'}">
-                    <h:commandLink value="Torna alla Home" action="indietro"/>
+                    <h:commandButton value="Torna alla Home" action="indietro"/>
                 </c:if>
 
                 <c:if test="#{logBean.logDip.mansione.mansione == 'Ingegnere'}">
-                    <h:commandLink value="Torna alla Home" action="indietro2"/>
+                    <h:commandButton value="Torna alla Home" action="indietro2"/>
                 </c:if>
                 </center>
             </h:form>

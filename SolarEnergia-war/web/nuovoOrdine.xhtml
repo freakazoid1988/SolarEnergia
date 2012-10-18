@@ -29,7 +29,7 @@
                                     <f:selectItem itemLabel="Nome e/o Cognome" itemValue="nome"/>
                                     <f:selectItem itemLabel="Ditta" itemValue="ditta"/>
                                     <f:selectItem itemLabel="P.Iva" itemValue="iva"/>
-                                    <f:selectItem itemLabel="Citt√†" itemValue="citta"/>
+                                    <f:selectItem itemLabel="Città" itemValue="citta"/>
                                     <f:selectItem itemLabel="Provincia" itemValue="provincia"/>
                                 </h:selectOneMenu>
                                 <h:inputText id="ricerca" size="25" value="#{ordineBean.chiaveRicerca}"/>
@@ -261,12 +261,12 @@
                                     </h:column>
                                     <h:outputLabel value="Merce:" for="merce" style="font-weight: bold; padding-right: 10px"/>
                                     <h:commandLink id="merce" value="Fornitura" action="#{ordineBean.fornitura()}" style="font-size: small"/>
-                                    <h:outputLabel value="Quantit√†:" for="quantita" style="font-weight: bold; padding-right: 10px"/>
+                                    <h:outputLabel value="Quantità" for="quantita" style="font-weight: bold; padding-right: 10px"/>
                                     <h:inputText id="quantita" readonly="true" value="#{ordineBean.quan()}"/>
                                     <h:outputLabel value="Totale:" for="totale" style="font-weight: bold; padding-right: 10px"/>
                                     <h:column>
                                         <h:inputText id="totale" readonly="true" value="#{ordineBean.tot()}"/>
-                                        <h:outputLabel value="‚Ç¨"/>
+                                        <h:outputLabel value="€"/>
                                     </h:column>
                                 </h:panelGrid><br/>
                                 <h:panelGrid columns="3" cellspacing="5">
@@ -305,7 +305,7 @@
                                 </c:if>
 
                                 <c:if test="#{ordineBean.fornitore==null}">
-                                    <h:outputLabel value="Attenzione non √® stato scelto alcun fornitore!"/>
+                                    <h:outputLabel value="Attenzione non è stato scelto alcun fornitore!"/>
                                 </c:if><br/>
                             </c:if>
 
@@ -346,7 +346,7 @@
                                         </h:column>
                                         <h:column>
                                             <f:facet name="header">
-                                                <h:outputText value="Quantit√†"/>
+                                                <h:outputText value="Quantità"/>
                                             </f:facet>
                                             <h:inputText value="#{item.quantOrdine}" size="10" validator="#{validatorBean.validaQtaOrdine}"/>
                                         </h:column>
