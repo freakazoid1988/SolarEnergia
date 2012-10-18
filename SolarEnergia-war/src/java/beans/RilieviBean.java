@@ -49,6 +49,7 @@ public class RilieviBean implements Serializable
         rilievi.setCliente(new Cliente());
         visione = false;
         aggiunta = false;
+        temporanei = new LinkedList<Rilievi>();
     }
     
     public Dipendente getAddetto()
@@ -113,13 +114,13 @@ public class RilieviBean implements Serializable
     
     public String rimuoviRilievi()
     {     
-        if(!listaRilievi.isEmpty())
+        if(!temporanei.isEmpty())
         {
-            for (Rilievi r: listaRilievi) 
+            for (Rilievi r: temporanei) 
             {
                 if(r.isSelected()) 
                 {
-                    rilieviBean.remove(rilievi);
+                    rilieviBean.remove(r);
                 }
             }
         }
@@ -129,22 +130,21 @@ public class RilieviBean implements Serializable
     
     public String convalidaRimozione()
     {
-        listaRilievi = rilieviBean.findAll();
-        temporanei = new LinkedList<Rilievi>();
         visione = true;
         aggiunta = false;
         if(!listaRilievi.isEmpty())
         {
-            for(Rilievi r:listaRilievi)
+            for(Rilievi r:listaRilievi) 
+            {
                 if(r.isSelected())
                 {
                     temporanei.add(r);
                 }
+            }
         }
         return "convalida";
     }
             
-    
     /*private void removeSelected() 
     {
         if (!listaRilievi.isEmpty()) {
@@ -159,14 +159,15 @@ public class RilieviBean implements Serializable
     }*/
     
         public String clear()
-    {
-        rilievi = new Rilievi();
-        rilievi.setCliente(new Cliente());
-        listaRilievi = new LinkedList<Rilievi>();
-        aggiunta = false;
-        visione = false;
-        return "back";
-    }
+        {
+            rilievi = new Rilievi();
+            rilievi.setCliente(new Cliente());
+            listaRilievi = new LinkedList<Rilievi>();
+            temporanei = new LinkedList<Rilievi>();
+            aggiunta = false;
+            visione = false;
+            return "back";
+        }
         
     public List<Cliente> listaClienti()
     {

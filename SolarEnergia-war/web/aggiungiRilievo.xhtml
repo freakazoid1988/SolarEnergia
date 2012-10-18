@@ -73,7 +73,9 @@
                                         <f:facet name="header">
                                             <h:outputText value="Check"/>
                                         </f:facet>
-                                        <h:selectBooleanCheckbox value="#{item.selected}"/>
+                                        <h:selectBooleanCheckbox value="#{item.selected}">
+                                            <f:ajax/>
+                                        </h:selectBooleanCheckbox>                                      
                                     </center>
                                 </h:column>
                             </h:dataTable>

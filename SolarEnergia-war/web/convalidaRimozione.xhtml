@@ -48,8 +48,9 @@ and open the template in the editor.
                                     <h:outputText value="#{item.qualitapannello}" style="padding-right: 10px"/>
                                 </h:column>
                             </h:dataTable>
-                            <h:commandButton value="Procedi con l'eliminazione" immediate="true" action="#{rilieviBean.convalidaRimozione()}"/>
+                            <h:commandButton value="Conferma eliminazione" immediate="true" action="#{rilieviBean.rimuoviRilievi()}"/>
                         </c:if>
+                <h:commandButton value="Indietro" action="back" />
             </center>
         </h:form>
         </f:view>

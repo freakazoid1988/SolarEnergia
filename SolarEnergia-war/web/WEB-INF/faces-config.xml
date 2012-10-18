@@ -523,6 +523,13 @@
             <to-view-id>/homeIngegnere.xhtml</to-view-id>
         </navigation-case>
     </navigation-rule>
+    <navigation-rule>
+        <from-view-id>/convalidaRimozione.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>back</from-outcome>
+            <to-view-id>/homeAddVendite.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
     <application>
         <resource-bundle>
             <base-name>/Bundle</base-name>
