@@ -34,12 +34,6 @@ public class ClienteBean implements Serializable
     @EJB
     ContrattoFacadeLocal contrattoBean;
 
-    /*@EJB
-    StatoSessionLocal statoBean;
-
-    @EJB
-    ContrattoSessionLocal contrattoBean;*/
-
     public Cliente getCliente()
     {
         return cliente;

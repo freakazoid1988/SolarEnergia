@@ -28,32 +28,8 @@ public class ProgettoBean implements Serializable
     private List<Pannello> preventivi, temporanei, t;
     private List<Progetto> progetti;
     private Rilievi rilievo;
-
-    public Rilievi getRilievo() {
-        return rilievo;
-    }
-
-    public void setRilievo(Rilievi rilievo) {
-        this.rilievo = rilievo;
-    }
-
-    public List<Progetto> getProgetti() {
-        return progetti;
-    }
-
-    public void setProgetti(List<Progetto> progetti) {
-        this.progetti = progetti;
-    }
     private boolean modifica, nuovo, aggiuntaPannello, ultimo;
     private float valore, preventivo;
-
-    public void setPreventivo(float preventivo) {
-        this.preventivo = preventivo;
-    }
-
-    public float getPreventivo() {
-        return preventivo;
-    }
 
     @EJB
     ClienteFacadeLocal clienteBean;
@@ -75,6 +51,32 @@ public class ProgettoBean implements Serializable
         pannello = new Pannello();
         valore = 0;
         preventivi = new LinkedList<Pannello>();
+    }
+    
+    
+    public Rilievi getRilievo() {
+        return rilievo;
+    }
+
+    public void setRilievo(Rilievi rilievo) {
+        this.rilievo = rilievo;
+    }
+
+    public List<Progetto> getProgetti() {
+        return progetti;
+    }
+
+    public void setProgetti(List<Progetto> progetti) {
+        this.progetti = progetti;
+    }
+
+
+    public void setPreventivo(float preventivo) {
+        this.preventivo = preventivo;
+    }
+
+    public float getPreventivo() {
+        return preventivo;
     }
 
     public float getValore()

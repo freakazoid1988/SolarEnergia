@@ -25,14 +25,6 @@ public class RilieviBean implements Serializable
     private Dipendente addetto;
     private boolean aggiunta, visione;
     private List<Rilievi> listaRilievi, temporanei;
-
-    public List<Rilievi> getTemporanei() {
-        return temporanei;
-    }
-
-    public void setTemporanei(List<Rilievi> temporanei) {
-        this.temporanei = temporanei;
-    }
     
     @EJB
     ClienteFacadeLocal clienteBean;
@@ -50,6 +42,14 @@ public class RilieviBean implements Serializable
         visione = false;
         aggiunta = false;
         temporanei = new LinkedList<Rilievi>();
+    }
+    
+    public List<Rilievi> getTemporanei() {
+        return temporanei;
+    }
+
+    public void setTemporanei(List<Rilievi> temporanei) {
+        this.temporanei = temporanei;
     }
     
     public Dipendente getAddetto()

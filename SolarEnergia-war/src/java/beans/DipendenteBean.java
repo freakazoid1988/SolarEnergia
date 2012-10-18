@@ -121,7 +121,6 @@ public class DipendenteBean implements Serializable{
 
     public String aggiungiAmministratore(){
        dipendente.getLogin().setDipendente(dipendente);
-       //dipendente.getSalario().setDipendenteList(dipList);
        dipBean.create(dipendente);
        return "back";
     }

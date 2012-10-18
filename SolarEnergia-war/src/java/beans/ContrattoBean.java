@@ -71,9 +71,6 @@ public class ContrattoBean implements Serializable
     {
         
         contratto.setCliente(clienteBean.findByID(contratto.getCliente().getIdcliente()));
-        /*
-         * Da controllare la classe Stato
-         */
         clienteBean.edit(contratto.getCliente());
         contrattoBean.create(contratto);
         contratto = contrattoBean.findByCodice(contratto.getCodice());

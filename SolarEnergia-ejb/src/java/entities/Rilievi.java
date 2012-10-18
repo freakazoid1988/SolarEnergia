@@ -49,14 +49,6 @@ public class Rilievi implements Serializable {
 
     @Transient
     private boolean selected;
-
-    public boolean isSelected() {
-        return selected;
-    }
-
-    public void setSelected(boolean selected) {
-        this.selected = selected;
-    }
     
     public Rilievi() {
     }
@@ -72,7 +64,14 @@ public class Rilievi implements Serializable {
     public void setIdrilievi(Integer idrilievi) {
         this.idrilievi = idrilievi;
     }
+    
+    public boolean isSelected() {
+        return selected;
+    }
 
+    public void setSelected(boolean selected) {
+        this.selected = selected;
+    }
     public String getPotenzaimpianto() {
         return potenzaimpianto;
     }
