@@ -109,6 +109,7 @@ public class RilieviBean implements Serializable
         rilievi.setCliente(clienteBean.findByID(rilievi.getCliente().getIdcliente()));
         clienteBean.edit(rilievi.getCliente());
         rilieviBean.create(rilievi);
+        clear();
         return "registra";
     }
     
@@ -145,18 +146,6 @@ public class RilieviBean implements Serializable
         return "convalida";
     }
             
-    /*private void removeSelected() 
-    {
-        if (!listaRilievi.isEmpty()) {
-            for (Rilievi r : listaRilievi) {
-                if (r.isSelected()) {
-                    if (!temporanei.contains(r)) {
-                        temporanei.remove(r);
-                    }
-                }
-            }
-        }
-    }*/
     
         public String clear()
         {
