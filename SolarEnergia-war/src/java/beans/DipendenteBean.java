@@ -62,7 +62,7 @@ public class DipendenteBean implements Serializable{
     public void setAggiunta(boolean aggiunta) {
         this.aggiunta = aggiunta;
     }
-
+    
     public boolean isEsistenti() {
         return esistenti;
     }
@@ -169,6 +169,11 @@ public class DipendenteBean implements Serializable{
 
     public void setRem(boolean rem) {
         this.rem = rem;
+    }
+    
+    public boolean isRemovable()
+    {
+        return (dipendente.getMansione().getMansione().equalsIgnoreCase("Ingegnere") && !dipendente.getProgettoList().isEmpty() || dipendente.getMansione().getMansione().equalsIgnoreCase("Addetto Vendite") && !dipendente.getContrattoList().isEmpty());
     }
     
     public String applica()

@@ -67,8 +67,8 @@
                     </c:if>
 
                     <c:if test="#{dipendenteBean.rem}">
-                        <h3><h:outputText value="ATTENZIONE! Si sta procedendo con la rimozione del dipendente #{dipendenteBean.dipendente.nome} #{dipendenteBean.dipendente.cognome}."/></h3><br/>
-                        <h:commandButton value="Conferma" action="#{dipendenteBean.rimuovi()}"/>
+                        <h3><h:outputText value="ATTENZIONE! Si sta procedendo con la rimozione del dipendente #{dipendenteBean.dipendente.nome} #{dipendenteBean.dipendente.cognome}. La rimozione potrebbe non essere possibile perché il dipendente ha creato contratti o progetti. In tal caso si possono solo modificare i suoi dati."/></h3><br/>
+                        <h:commandButton value="Conferma rimozione" action="#{dipendenteBean.rimuovi()}" disabled="#{dipendenteBean.isRemovable()}"/>
                     </c:if>
                     <h:commandButton value="Modifica" action="modifica"/><br/>
                     <br/><br/>
