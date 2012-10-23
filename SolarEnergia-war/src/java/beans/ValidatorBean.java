@@ -504,17 +504,17 @@ public class ValidatorBean implements Serializable {
         return true;
     }
 
-    public void validaStato(FacesContext context, UIComponent component, Object value) {
-        String stato = (String) value;
-        FacesMessage messaggio = new FacesMessage();
-        messaggio.setSeverity(FacesMessage.SEVERITY_ERROR);
-
-        if (!(stato.equalsIgnoreCase("inoltrato") || stato.equalsIgnoreCase("in attesa") || stato.equalsIgnoreCase("ricevuto") || stato.equalsIgnoreCase("cancellato"))) {
-            messaggio.setSummary("Attenzione! Gli unici stati validi per un ordine sono 'Inoltrato' 'In Attesa' 'Ricevuto' 'Cancellato'!");
-            context.addMessage("Form:Stato", messaggio);
-            throw new ValidatorException(messaggio);
-        }
-    }
+//    public void validaStato(FacesContext context, UIComponent component, Object value) {
+//        String stato = (String) value;
+//        FacesMessage messaggio = new FacesMessage();
+//        messaggio.setSeverity(FacesMessage.SEVERITY_ERROR);
+//
+//        if (!(stato.equalsIgnoreCase("inoltrato") || stato.equalsIgnoreCase("ricevuto") || stato.equalsIgnoreCase("cancellato"))) {
+//            messaggio.setSummary("Attenzione! Gli unici stati validi per un ordine sono 'Inoltrato' 'Ricevuto' 'Cancellato'!");
+//            context.addMessage("Form:Stato", messaggio);
+//            throw new ValidatorException(messaggio);
+//        }
+//    }
 
     public void validaQuantita(FacesContext context, UIComponent component, Object value) {
         int quantita = (Integer) value;

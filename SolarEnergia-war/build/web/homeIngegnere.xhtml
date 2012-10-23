@@ -21,9 +21,8 @@
 
                         <h:commandButton value="Nuovo progetto" action="#{progettoBean.nuovoProgetto(logBean.logDip)}"/><br/><br/>
 
-                        <h:commandButton value="Visiona Rilievi" action="#{progettoBean.visionaRilievi}"/><br/><br/>
+                        <h:commandButton value="Visiona Rilievi e Progetti" action="#{progettoBean.visionaRilievi}"/><br/><br/>
 
-                        <h:commandButton value="Visiona Progetti" action="#{progettoBean.progetti(logBean.logDip)}"/><br/><br/>
 
                         <c:if test="#{not empty progettoBean.rilievi}">
 

@@ -173,7 +173,11 @@
                                 <h:outputLabel value="Data Inoltro:" for="data" style="font-weight: bold; padding-right: 10px"/>
                                 <h:inputText id="data" readonly="true" value="#{ordineBean.ordine.dataordine}"/>
                                 <h:outputLabel value="Stato:" for="stato" style="font-weight: bold; padding-right: 10px"/>
-                                <h:inputText id="stato" value="#{ordineBean.ordine.stato}" validator="#{validatorBean.validaStato}" valueChangeListener="#{ordineBean.abilitaPulsante(event)}" onchange="submit()"/>
+                                <h:selectOneMenu value="#{ordineBean.ordine.stato}" valueChangeListener="#{ordineBean.abilitaPulsante(event)}" onchange="submit()">
+					<f:selectItem itemLabel="Inoltrato" itemValue="Inoltrato"/>
+					<f:selectItem itemLabel="Ricevuto" itemValue="Ricevuto"/>
+					<f:selectItem itemLabel="Cancellato" itemValue="Cancellato"/>
+				</h:selectOneMenu>
                                 <h:outputLabel value="Quantità:" for="quantita" style="font-weight: bold; padding-right: 10px"/>
                                 <h:inputText id="quantita" readonly="true" value="#{ordineBean.ordine.quantita}"/>
                                 <h:outputLabel value="Totale:" for="totale" style="font-weight: bold; padding-right: 10px"/>
